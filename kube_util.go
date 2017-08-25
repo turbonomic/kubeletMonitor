@@ -1,12 +1,12 @@
 package main
 
 import (
-	"net/http"
 	netutil "k8s.io/apimachinery/pkg/util/net"
+	"net/http"
 
 	"github.com/golang/glog"
-	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/client-go/rest"
+	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/client-go/transport"
 	"time"
 )
@@ -63,7 +63,7 @@ func MakeTransport(config *rest.Config, enableHttps bool) (http.RoundTripper, er
 	rt := http.DefaultTransport
 	if tlsConfig != nil {
 		rt = netutil.SetOldTransportDefaults(&http.Transport{
-			TLSClientConfig: tlsConfig,
+			TLSClientConfig:     tlsConfig,
 			TLSHandshakeTimeout: time.Second * 10,
 		})
 	}

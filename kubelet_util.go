@@ -77,10 +77,10 @@ func (c *KubeletClient) GetMachineInfo(host string) error {
 }
 
 func (c *KubeletClient) GetSummary(host string) error {
-	requestURL := url.URL {
+	requestURL := url.URL{
 		Scheme: c.scheme,
-		Host: fmt.Sprintf("%s:%d", host, c.port),
-		Path: summaryPath,
+		Host:   fmt.Sprintf("%s:%d", host, c.port),
+		Path:   summaryPath,
 	}
 
 	req, err := http.NewRequest("GET", requestURL.String(), nil)
