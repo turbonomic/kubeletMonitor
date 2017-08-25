@@ -7,8 +7,8 @@ import (
 
 var (
 	kubeletHost = "localhost"
-	masterUrl = ""
-	kubeConfig = ""
+	masterUrl   = ""
+	kubeConfig  = ""
 )
 
 func process_flags(c *kubeletConfig) {
@@ -36,7 +36,6 @@ func main() {
 	}
 	process_flags(config)
 
-	glog.V(2).Infof("hello")
 	restConfig := GetKubeConfig(masterUrl, kubeConfig)
 	if restConfig == nil {
 		glog.Errorf("failed to get kubeClient config.")
