@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubelet-test
+  labels:
+    name: kubelet
+spec:
+  nodeSelector:
+    role: master
+  containers:
+  - name: kubelet-monitor
+    image: beekman9527/kubelet
+    imagePullPolicy: Always
+    args:
+      - --v=3
+      - --kubeletPort=10250
+      - --kubeletHttps=true
+      - --host=enslave1.octurbo.org
+      - --masterUrl=https://enmaster.octurbo.org:8443
+      - --kubeConfig=/etc/kubeturbo/admin.kubeconfig
+    volumeMounts:
+    - name: vmt-config
+      mountPath: /etc/kubeturbo
+      readOnly: true
+  volumes:
+  - name: vmt-config
+    hostPath:
+      path: /etc/kubeturbo
+  restartPolicy: Always
+

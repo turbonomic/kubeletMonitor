@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubelet-test
+  labels:
+    name: kubelet
+spec:
+  nodeSelector:
+    role: master
+  containers:
+  - name: kubelet-aws
+    image: beekman9527/kubelet
+    imagePullPolicy: Always
+    args:
+      - --v=3
+      - --kubeletPort=10255
+      - --kubeletHttps=false
+      - --host=ip-172-23-1-92.us-west-2.compute.internal
+      - --masterUrl=https://172.23.1.39:6443
+      #- --kubeConfig=/etc/kubeturbo/kubeconfig
+    volumeMounts:
+    - name: vmt-config
+      mountPath: /etc/kubeturbo
+      readOnly: true
+  volumes:
+  - name: vmt-config
+    hostPath:
+      path: /etc/kubeturbo
+  restartPolicy: Always

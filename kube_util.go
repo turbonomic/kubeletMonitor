@@ -18,6 +18,18 @@ func GetKubeConfig(masterUrl, configfile string) *rest.Config {
 		return nil
 	}
 
+	//// 1. in-cluster config: will use the Service Account Token mounted inside the Pod at
+	////                    /var/run/secretes/kubernetes.io/serviceaccount
+	//if configfile == "" {
+	//	config, err := rest.InClusterConfig()
+	//	if err != nil {
+	//		panic(err.Error())
+	//	}
+
+	//	return config
+	//}
+
+	// 2. out-of-cluster config
 	config, err := clientcmd.BuildConfigFromFlags(masterUrl, configfile)
 	if err != nil {
 		return nil
